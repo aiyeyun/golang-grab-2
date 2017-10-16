@@ -8,13 +8,10 @@ import (
 	"log"
 	"os"
 	"xmn_2/core/algorithm/shishicai/CustomPackage"
-	"xmn_2/core/mail"
 )
 
 func main(){
 	log.Println("服务启动中．．．　进程ID:", os.Getpid())
-	mail.SendMail("邮件测试", "邮件测试")
-	os.Exit(0)
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	for {
 		select {

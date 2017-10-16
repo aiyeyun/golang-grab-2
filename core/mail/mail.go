@@ -8,6 +8,7 @@ import (
 	"log"
 	"xmn_2/core/logger"
 	"time"
+	"fmt"
 )
 
 func SendMail(logstr , body string)  {
@@ -42,6 +43,8 @@ func SendMail(logstr , body string)  {
 
 	m := gomail.NewMessage()
 	for i := range addressee {
+		fmt.Println(addressee[i].Address)
+		continue
 		m.SetAddressHeader("From", addresser, addresserName)
 		m.SetAddressHeader("To", addressee[i].Address, "")
 		m.SetHeader("Subject", "机房提醒-[新]")

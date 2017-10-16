@@ -25,6 +25,9 @@ func init()  {
 	db_max_idle := config.Read("mysql", "MaxIdle")
 	max_idle, _ := strconv.Atoi(db_max_idle)
 	DB, err = sql.Open(db_type, db_user+":"+db_pass+"@tcp("+db_host+":"+db_port+")/"+db_name+"?charset=utf8")
+
+	log.Println(db_user+":"+db_pass+"@tcp("+db_host+":"+db_port+")/"+db_name+"?charset=utf8")
+
 	DB.SetMaxOpenConns(max_open)
 	DB.SetMaxIdleConns(max_idle)
 	err = DB.Ping()

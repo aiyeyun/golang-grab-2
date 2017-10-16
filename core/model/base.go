@@ -2,7 +2,7 @@ package model
 
 import (
 	"database/sql"
-	"xmn/core/config"
+	"xmn_2/core/config"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"fmt"

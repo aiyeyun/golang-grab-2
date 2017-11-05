@@ -43,3 +43,11 @@ func (model *CustomPackage) Query() []*CustomPackage  {
 
 	return data
 }
+
+func (model *CustomPackage) Update(sql string) bool {
+	_, err := DB.Exec(sql)
+	if err != nil {
+		return false
+	}
+	return true
+}

@@ -25,7 +25,6 @@ func main(){
 			go ssc.ContailMultiple()
 			// 时时彩 AB包 自定义A包周期 报警
 			go CustomPackage.Calculation()
-			go CustomPackage.ChangeA()
 		}
 	}
 }

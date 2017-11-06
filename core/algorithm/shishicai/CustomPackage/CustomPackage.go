@@ -30,13 +30,13 @@ func Calculation()  {
 
 	//获取开奖号
 	cqssc := new(model.Cqssc)
-	cqCodes = cqssc.Query("1000")
+	cqCodes = cqssc.Query("600")
 
 	tjssc := new(model.Tjssc)
-	tjCodes = tjssc.Query("1000")
+	tjCodes = tjssc.Query("600")
 
 	xjscc := new(model.Xjssc)
-	xjCodes = xjscc.Query("1000")
+	xjCodes = xjscc.Query("600")
 
 	//获取数据包
 	cPackage := new(model.CustomPackage)

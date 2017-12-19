@@ -99,9 +99,12 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 	go func(config *model.Alarm) {
 		//重庆报警
 		var body string
-		q3_log_html, q3_num := consecutiveCodesAnalyse(cq_q3s, "前三", CpTypeName[CqsscType])
-		z3_log_html, z3_num := consecutiveCodesAnalyse(cq_z3s, "中三", CpTypeName[CqsscType])
-		h3_log_html, h3_num := consecutiveCodesAnalyse(cq_h3s, "后三", CpTypeName[CqsscType])
+		//q3_log_html, q3_num := consecutiveCodesAnalyse(cq_q3s, "前三", CpTypeName[CqsscType])
+		//z3_log_html, z3_num := consecutiveCodesAnalyse(cq_z3s, "中三", CpTypeName[CqsscType])
+		//h3_log_html, h3_num := consecutiveCodesAnalyse(cq_h3s, "后三", CpTypeName[CqsscType])
+		_, q3_num := consecutiveCodesAnalyse(cq_q3s, "前三", CpTypeName[CqsscType])
+		_, z3_num := consecutiveCodesAnalyse(cq_z3s, "中三", CpTypeName[CqsscType])
+		_, h3_num := consecutiveCodesAnalyse(cq_h3s, "后三", CpTypeName[CqsscType])
 		if q3_num >= config.Number {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
@@ -111,9 +114,9 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		if h3_num >= config.Number {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
-		body += q3_log_html
-		body += z3_log_html
-		body += h3_log_html
+		//body += q3_log_html
+		//body += z3_log_html
+		//body += h3_log_html
 
 		if q3_num >= config.Number || z3_num >= config.Number || h3_num >= config.Number {
 			//发送邮件
@@ -124,9 +127,12 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 	go func(config *model.Alarm) {
 		//天津报警
 		var body string
-		q3_log_html, q3_num := consecutiveCodesAnalyse(tj_q3s, "前三", CpTypeName[TjsscType])
-		z3_log_html, z3_num := consecutiveCodesAnalyse(tj_z3s, "中三", CpTypeName[TjsscType])
-		h3_log_html, h3_num := consecutiveCodesAnalyse(tj_h3s, "后三", CpTypeName[TjsscType])
+		//q3_log_html, q3_num := consecutiveCodesAnalyse(tj_q3s, "前三", CpTypeName[TjsscType])
+		//z3_log_html, z3_num := consecutiveCodesAnalyse(tj_z3s, "中三", CpTypeName[TjsscType])
+		//h3_log_html, h3_num := consecutiveCodesAnalyse(tj_h3s, "后三", CpTypeName[TjsscType])
+		_, q3_num := consecutiveCodesAnalyse(tj_q3s, "前三", CpTypeName[TjsscType])
+		_, z3_num := consecutiveCodesAnalyse(tj_z3s, "中三", CpTypeName[TjsscType])
+		_, h3_num := consecutiveCodesAnalyse(tj_h3s, "后三", CpTypeName[TjsscType])
 		if q3_num >= config.Number {
 			body += "<div> 彩种: " + CpTypeName[TjsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
@@ -136,9 +142,9 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		if h3_num >= config.Number {
 			body += "<div> 彩种: " + CpTypeName[TjsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
-		body += q3_log_html
-		body += z3_log_html
-		body += h3_log_html
+		//body += q3_log_html
+		//body += z3_log_html
+		//body += h3_log_html
 
 		if q3_num >= config.Number || z3_num >= config.Number || h3_num >= config.Number {
 			//发送邮件
@@ -149,9 +155,12 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 	go func(config *model.Alarm) {
 		//新疆报警
 		var body string
-		q3_log_html, q3_num := consecutiveCodesAnalyse(xj_q3s, "前三", CpTypeName[XjsscType])
-		z3_log_html, z3_num := consecutiveCodesAnalyse(xj_z3s, "中三", CpTypeName[XjsscType])
-		h3_log_html, h3_num := consecutiveCodesAnalyse(xj_h3s, "后三", CpTypeName[XjsscType])
+		//q3_log_html, q3_num := consecutiveCodesAnalyse(xj_q3s, "前三", CpTypeName[XjsscType])
+		//z3_log_html, z3_num := consecutiveCodesAnalyse(xj_z3s, "中三", CpTypeName[XjsscType])
+		//h3_log_html, h3_num := consecutiveCodesAnalyse(xj_h3s, "后三", CpTypeName[XjsscType])
+		_, q3_num := consecutiveCodesAnalyse(xj_q3s, "前三", CpTypeName[XjsscType])
+		_, z3_num := consecutiveCodesAnalyse(xj_z3s, "中三", CpTypeName[XjsscType])
+		_, h3_num := consecutiveCodesAnalyse(xj_h3s, "后三", CpTypeName[XjsscType])
 		if q3_num >= config.Number {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
@@ -161,9 +170,9 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		if h3_num >= config.Number {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
-		body += q3_log_html
-		body += z3_log_html
-		body += h3_log_html
+		//body += q3_log_html
+		//body += z3_log_html
+		//body += h3_log_html
 
 		if q3_num >= config.Number || z3_num >= config.Number || h3_num >= config.Number {
 			//发送邮件
@@ -174,9 +183,12 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 	go func(config *model.Alarm) {
 		//台湾报警
 		var body string
-		q3_log_html, q3_num := consecutiveCodesAnalyse(tw_q3s, "前三", CpTypeName[TwsscType])
-		z3_log_html, z3_num := consecutiveCodesAnalyse(tw_z3s, "中三", CpTypeName[TwsscType])
-		h3_log_html, h3_num := consecutiveCodesAnalyse(tw_h3s, "后三", CpTypeName[TwsscType])
+		//q3_log_html, q3_num := consecutiveCodesAnalyse(tw_q3s, "前三", CpTypeName[TwsscType])
+		//z3_log_html, z3_num := consecutiveCodesAnalyse(tw_z3s, "中三", CpTypeName[TwsscType])
+		//h3_log_html, h3_num := consecutiveCodesAnalyse(tw_h3s, "后三", CpTypeName[TwsscType])
+		_, q3_num := consecutiveCodesAnalyse(tw_q3s, "前三", CpTypeName[TwsscType])
+		_, z3_num := consecutiveCodesAnalyse(tw_z3s, "中三", CpTypeName[TwsscType])
+		_, h3_num := consecutiveCodesAnalyse(tw_h3s, "后三", CpTypeName[TwsscType])
 		if q3_num >= config.Number {
 			body += "<div> 彩种: " + CpTypeName[TwsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
@@ -186,9 +198,9 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		if h3_num >= config.Number {
 			body += "<div> 彩种: " + CpTypeName[TwsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
-		body += q3_log_html
-		body += z3_log_html
-		body += h3_log_html
+		//body += q3_log_html
+		//body += z3_log_html
+		//body += h3_log_html
 
 		if q3_num >= config.Number || z3_num >= config.Number || h3_num >= config.Number {
 			//发送邮件

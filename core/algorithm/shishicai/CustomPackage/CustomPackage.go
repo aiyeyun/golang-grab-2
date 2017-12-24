@@ -32,11 +32,13 @@ func Calculation()  {
 	cqssc := new(model.Cqssc)
 	cqCodes = cqssc.Query("200")
 
-	tjssc := new(model.Tjssc)
-	tjCodes = tjssc.Query("200")
-
 	xjscc := new(model.Xjssc)
 	xjCodes = xjscc.Query("200")
+
+	/*
+	tjssc := new(model.Tjssc)
+	tjCodes = tjssc.Query("200")
+	 */
 
 	//获取数据包
 	cPackage := new(model.CustomPackage)
@@ -44,21 +46,23 @@ func Calculation()  {
 
 	//先获取 前中后的开奖号码 再遍历 就可以判断是否属于重复分析
 	cq_q3s, cq_z3s, cq_h3s := getFrontCenterAfterCodes(cqsscType)
-	tj_q3s, tj_z3s, tj_h3s := getFrontCenterAfterCodes(tjsscType)
 	xj_q3s, xj_z3s, xj_h3s := getFrontCenterAfterCodes(xjsscType)
+	//tj_q3s, tj_z3s, tj_h3s := getFrontCenterAfterCodes(tjsscType)
 
 	allCodes := &allCpCodes{
 		cq_q3s: cq_q3s,
 		cq_z3s: cq_z3s,
 		cq_h3s: cq_h3s,
 
-		tj_q3s: tj_q3s,
-		tj_z3s: tj_z3s,
-		tj_h3s: tj_h3s,
-
 		xj_q3s: xj_q3s,
 		xj_z3s: xj_z3s,
 		xj_h3s: xj_h3s,
+
+		/*
+		tj_q3s: tj_q3s,
+		tj_z3s: tj_z3s,
+		tj_h3s: tj_h3s,
+		 */
 	}
 
 	for i := range configPackage {
@@ -114,36 +118,6 @@ func analysis(packet *model.CustomPackage, allCodes *allCpCodes)  {
 		packet: packet,
 	}
 
-	//天津前3
-	tj_q3 := &computing{
-		packet_map: dataTxtMapPackage,
-		code: allCodes.tj_q3s,
-		cpType: tjsscType,
-		cpTypeName: cpTypeName[tjsscType],
-		position: "前3",
-		packet: packet,
-	}
-
-	//天津中3
-	tj_z3 := &computing{
-		packet_map: dataTxtMapPackage,
-		code: allCodes.tj_z3s,
-		cpType: tjsscType,
-		cpTypeName: cpTypeName[tjsscType],
-		position: "中3",
-		packet: packet,
-	}
-
-	//天津后3
-	tj_h3 := &computing{
-		packet_map: dataTxtMapPackage,
-		code: allCodes.tj_h3s,
-		cpType: tjsscType,
-		cpTypeName: cpTypeName[tjsscType],
-		position: "后3",
-		packet: packet,
-	}
-
 	//新疆前3
 	xj_q3 := &computing{
 		packet_map: dataTxtMapPackage,
@@ -174,17 +148,51 @@ func analysis(packet *model.CustomPackage, allCodes *allCpCodes)  {
 		packet: packet,
 	}
 
+	/*
+	//天津前3
+	tj_q3 := &computing{
+		packet_map: dataTxtMapPackage,
+		code: allCodes.tj_q3s,
+		cpType: tjsscType,
+		cpTypeName: cpTypeName[tjsscType],
+		position: "前3",
+		packet: packet,
+	}
+
+	//天津中3
+	tj_z3 := &computing{
+		packet_map: dataTxtMapPackage,
+		code: allCodes.tj_z3s,
+		cpType: tjsscType,
+		cpTypeName: cpTypeName[tjsscType],
+		position: "中3",
+		packet: packet,
+	}
+
+	//天津后3
+	tj_h3 := &computing{
+		packet_map: dataTxtMapPackage,
+		code: allCodes.tj_h3s,
+		cpType: tjsscType,
+		cpTypeName: cpTypeName[tjsscType],
+		position: "后3",
+		packet: packet,
+	}
+	*/
+
 	go cq_q3.calculate()
 	go cq_z3.calculate()
 	go cq_h3.calculate()
 
-	go tj_q3.calculate()
-	go tj_z3.calculate()
-	go tj_h3.calculate()
-
 	go xj_q3.calculate()
 	go xj_z3.calculate()
 	go xj_h3.calculate()
+
+	/*
+	go tj_q3.calculate()
+	go tj_z3.calculate()
+	go tj_h3.calculate()
+	*/
 }
 
 //计算分析
@@ -381,6 +389,17 @@ func isRepeat(cpType int) bool {
 		newCode = cqCodes[index].One + cqCodes[index].Two + cqCodes[index].Three + cqCodes[index].Four + cqCodes[index].Five
 	}
 
+	//新疆时时彩
+	if cpType == xjsscType {
+		//获取本次查询的最新号码
+		if len(xjCodes) == 0 {
+			return false
+		}
+		index := len(xjCodes) - 1
+		newCode = xjCodes[index].One + xjCodes[index].Two + xjCodes[index].Three + xjCodes[index].Four + xjCodes[index].Five
+	}
+
+	/*
 	//天津时时彩
 	if cpType == tjsscType {
 		//获取本次查询的最新号码
@@ -390,15 +409,7 @@ func isRepeat(cpType int) bool {
 		index := len(tjCodes) - 1
 		newCode = tjCodes[index].One + tjCodes[index].Two + tjCodes[index].Three + tjCodes[index].Four + tjCodes[index].Five
 	}
-
-	if cpType == xjsscType {
-		//获取本次查询的最新号码
-		if len(xjCodes) == 0 {
-			return false
-		}
-		index := len(xjCodes) - 1
-		newCode = xjCodes[index].One + xjCodes[index].Two + xjCodes[index].Three + xjCodes[index].Four + xjCodes[index].Five
-	}
+	*/
 
 	//获取内存中最新的重新开奖号码
 	new_code = newsCode.Get(cpType)

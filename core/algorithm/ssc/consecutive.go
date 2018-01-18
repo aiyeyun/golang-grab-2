@@ -111,13 +111,13 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		_, q3_num := consecutiveCodesAnalyse(cq_q3s, "前三", CpTypeName[CqsscType])
 		_, z3_num := consecutiveCodesAnalyse(cq_z3s, "中三", CpTypeName[CqsscType])
 		_, h3_num := consecutiveCodesAnalyse(cq_h3s, "后三", CpTypeName[CqsscType])
-		if q3_num >= config.Number {
+		if q3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
-		if z3_num >= config.Number {
+		if z3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>"
 		}
-		if h3_num >= config.Number {
+		if h3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
 		//body += q3_log_html
@@ -139,13 +139,13 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		_, q3_num := consecutiveCodesAnalyse(tj_q3s, "前三", CpTypeName[TjsscType])
 		_, z3_num := consecutiveCodesAnalyse(tj_z3s, "中三", CpTypeName[TjsscType])
 		_, h3_num := consecutiveCodesAnalyse(tj_h3s, "后三", CpTypeName[TjsscType])
-		if q3_num >= config.Number {
+		if q3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[TjsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
-		if z3_num >= config.Number {
+		if z3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[TjsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>"
 		}
-		if h3_num >= config.Number {
+		if h3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[TjsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
 		//body += q3_log_html
@@ -167,13 +167,13 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		_, q3_num := consecutiveCodesAnalyse(xj_q3s, "前三", CpTypeName[XjsscType])
 		_, z3_num := consecutiveCodesAnalyse(xj_z3s, "中三", CpTypeName[XjsscType])
 		_, h3_num := consecutiveCodesAnalyse(xj_h3s, "后三", CpTypeName[XjsscType])
-		if q3_num >= config.Number {
+		if q3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
-		if z3_num >= config.Number {
+		if z3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>"
 		}
-		if h3_num >= config.Number {
+		if h3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
 		//body += q3_log_html

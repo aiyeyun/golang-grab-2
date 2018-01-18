@@ -124,7 +124,7 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		//body += z3_log_html
 		//body += h3_log_html
 
-		if q3_num >= config.Number || z3_num >= config.Number || h3_num >= config.Number {
+		if q3_num == config.Number || z3_num == config.Number || h3_num == config.Number {
 			//发送邮件
 			mail.SendMail(CpTypeName[CqsscType] + " 连号", body)
 		}
@@ -152,7 +152,7 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		//body += z3_log_html
 		//body += h3_log_html
 
-		if q3_num >= config.Number || z3_num >= config.Number || h3_num >= config.Number {
+		if q3_num == config.Number || z3_num == config.Number || h3_num == config.Number {
 			//发送邮件
 			mail.SendMail(CpTypeName[TjsscType] + " 连号", body)
 		}
@@ -180,7 +180,7 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		//body += z3_log_html
 		//body += h3_log_html
 
-		if q3_num >= config.Number || z3_num >= config.Number || h3_num >= config.Number {
+		if q3_num == config.Number || z3_num == config.Number || h3_num == config.Number {
 			//发送邮件
 			mail.SendMail(CpTypeName[XjsscType] + " 连号", body)
 		}

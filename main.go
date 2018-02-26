@@ -28,7 +28,8 @@ func main(){
 			// 时时彩 AB包 自定义A包周期 报警
 			go CustomPackage.Calculation()
 			// 时时彩 a出现几期的b
-			go play1.Calculation()
+			//go play1.Calculation()
+			// 时时彩 间隔几连号
 			go play2.Consecutive()
 		}
 	}

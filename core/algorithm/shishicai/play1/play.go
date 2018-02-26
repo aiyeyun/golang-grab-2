@@ -2,13 +2,13 @@ package play1
 
 import (
 	"fmt"
-	"xmn/core/model"
+	"xmn_2/core/model"
 	"time"
 	"log"
 	"strings"
-	"xmn/core/logger"
+	"xmn_2/core/logger"
 	"strconv"
-	"xmn/core/mail"
+	"xmn_2/core/mail"
 )
 
 //计算分析结构体

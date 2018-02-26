@@ -1,7 +1,7 @@
 package play1
 
 import (
-	"xmn/core/model"
+	"xmn_2/core/model"
 	"sync"
 )
 

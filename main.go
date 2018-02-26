@@ -8,7 +8,7 @@ import (
 	"log"
 	"os"
 	"xmn_2/core/algorithm/shishicai/CustomPackage"
-	"xmn_2/core/algorithm/shishicai/play1"
+	//"xmn_2/core/algorithm/shishicai/play1"
 	"xmn_2/core/algorithm/shishicai/play2"
 )
 

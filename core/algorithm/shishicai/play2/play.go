@@ -134,7 +134,7 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 		body += z3_log_html
 		body += h3_log_html
 
-		if config.Id == 3 {
+		if config.Id == 3 && body != "" {
 			mail.SendMail(CpTypeName[CqsscType] + " 间隔几连号 调试模式 ", body)
 		}
 
@@ -200,8 +200,9 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 		body += q3_log_html
 		body += z3_log_html
 		body += h3_log_html
+		mail.SendMail(CpTypeName[CqsscType] + " 间隔几连号 调试模式 ", body)
 
-		if config.Id == 3 {
+		if config.Id == 3 && body != "" {
 			mail.SendMail(CpTypeName[CqsscType] + " 间隔几连号 调试模式 ", body)
 		}
 

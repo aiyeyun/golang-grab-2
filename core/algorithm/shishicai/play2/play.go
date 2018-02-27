@@ -121,13 +121,13 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 			str_mode = "[非连续模式]"
 		}
 
-		if q3_num == config.Number {
+		if q3_num == config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 间隔几连号 "+str_mode+" 报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
-		if z3_num == config.Number {
+		if z3_num == config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 间隔几连号 "+str_mode+" 报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>"
 		}
-		if h3_num == config.Number {
+		if h3_num == config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 间隔几连号 "+str_mode+" 报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
 		body += q3_log_html
@@ -187,13 +187,13 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 			str_mode = "[非连续模式]"
 		}
 
-		if q3_num == config.Number {
+		if q3_num == config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 间隔几连号 "+str_mode+" 报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
-		if z3_num == config.Number {
+		if z3_num == config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 间隔几连号 "+str_mode+" 报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>"
 		}
-		if h3_num == config.Number {
+		if h3_num == config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 间隔几连号 "+str_mode+" 报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
 		body += q3_log_html

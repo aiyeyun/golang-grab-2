@@ -107,28 +107,28 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 	go func(config *model.Play2) {
 		//重庆报警
 		var body string
-		q3_log_html, q3_num := consecutiveCodesAnalyse(config, cq_q3s, "前三", CpTypeName[CqsscType])
-		z3_log_html, z3_num := consecutiveCodesAnalyse(config, cq_z3s, "中三", CpTypeName[CqsscType])
-		h3_log_html, h3_num := consecutiveCodesAnalyse(config, cq_h3s, "后三", CpTypeName[CqsscType])
+		q3_log_html, q3_num, q3_remind := consecutiveCodesAnalyse(config, cq_q3s, "前三", CpTypeName[CqsscType])
+		z3_log_html, z3_num, z3_remind := consecutiveCodesAnalyse(config, cq_z3s, "中三", CpTypeName[CqsscType])
+		h3_log_html, h3_num, h3_remind := consecutiveCodesAnalyse(config, cq_h3s, "后三", CpTypeName[CqsscType])
 		//_, q3_num := consecutiveCodesAnalyse(config, cq_q3s, "前三", CpTypeName[CqsscType])
 		//_, z3_num := consecutiveCodesAnalyse(config, cq_z3s, "中三", CpTypeName[CqsscType])
 		//_, h3_num := consecutiveCodesAnalyse(config, cq_h3s, "后三", CpTypeName[CqsscType])
 
 		name := " 连号: " + strconv.Itoa(config.Number) + "期, 周期: "+strconv.Itoa(config.Cycle)+ " 期 "
-		if q3_num == config.Cycle {
+		if q3_remind && q3_num >= config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 间隔几连号 "+name+" 报警提示 位置: 前三 周期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
-		if z3_num == config.Cycle {
+		if z3_remind && z3_num >= config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 间隔几连号 "+name+" 报警提示 位置: 中三 周期数: "+ strconv.Itoa(z3_num) + "</div>"
 		}
-		if h3_num == config.Cycle {
+		if h3_remind && h3_num >= config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 间隔几连号 "+name+" 报警提示 位置: 后三 周期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
 		body += q3_log_html
 		body += z3_log_html
 		body += h3_log_html
 
-		if q3_num == config.Cycle || z3_num == config.Cycle || h3_num == config.Cycle {
+		if (q3_remind && q3_num >= config.Cycle) || (z3_remind && z3_num >= config.Cycle) || (h3_remind && h3_num >= config.Cycle) {
 			//发送邮件
 			mail.SendMail(CpTypeName[CqsscType] + " 间隔几连号", body)
 		}
@@ -164,28 +164,28 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 	go func(config *model.Play2) {
 		//新疆报警
 		var body string
-		q3_log_html, q3_num := consecutiveCodesAnalyse(config, xj_q3s, "前三", CpTypeName[XjsscType])
-		z3_log_html, z3_num := consecutiveCodesAnalyse(config, xj_z3s, "中三", CpTypeName[XjsscType])
-		h3_log_html, h3_num := consecutiveCodesAnalyse(config, xj_h3s, "后三", CpTypeName[XjsscType])
+		q3_log_html, q3_num, q3_remind := consecutiveCodesAnalyse(config, xj_q3s, "前三", CpTypeName[XjsscType])
+		z3_log_html, z3_num, z3_remind := consecutiveCodesAnalyse(config, xj_z3s, "中三", CpTypeName[XjsscType])
+		h3_log_html, h3_num, h3_remind := consecutiveCodesAnalyse(config, xj_h3s, "后三", CpTypeName[XjsscType])
 		//_, q3_num := consecutiveCodesAnalyse(config, xj_q3s, "前三", CpTypeName[XjsscType])
 		//_, z3_num := consecutiveCodesAnalyse(config, xj_z3s, "中三", CpTypeName[XjsscType])
 		//_, h3_num := consecutiveCodesAnalyse(config, xj_h3s, "后三", CpTypeName[XjsscType])
 
 		name := " 连号: " + strconv.Itoa(config.Number) + "期, 周期: "+strconv.Itoa(config.Cycle)+ " 期 "
-		if q3_num == config.Cycle {
+		if q3_remind && q3_num == config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 间隔几连号 "+name+" 报警提示 位置: 前三 周期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
-		if z3_num == config.Cycle {
+		if z3_remind && z3_num == config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 间隔几连号 "+name+" 报警提示 位置: 中三 周期数: "+ strconv.Itoa(z3_num) + "</div>"
 		}
-		if h3_num == config.Cycle {
+		if h3_remind && h3_num == config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 间隔几连号 "+name+" 报警提示 位置: 后三 周期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
 		body += q3_log_html
 		body += z3_log_html
 		body += h3_log_html
 
-		if q3_num == config.Cycle || z3_num == config.Cycle || h3_num == config.Cycle {
+		if (q3_remind && q3_num == config.Cycle) || (z3_remind && z3_num == config.Cycle) || (h3_remind && h3_num == config.Cycle) {
 			//发送邮件
 			mail.SendMail(CpTypeName[XjsscType] + " 间隔几连号", body)
 		}
@@ -343,9 +343,9 @@ func getTwCodes() ([]string, []string, []string) {
 }
 */
 
-func consecutiveCodesAnalyse(config *model.Play2, codes []string, position string, cpName string) (string, int) {
+func consecutiveCodesAnalyse(config *model.Play2, codes []string, position string, cpName string) (string, int, bool) {
 	return continuityModo(config, codes, position, cpName)
-
+	/*
 	// 计算方式是 连续模式
 	if config.Type == 1 {
 		return continuityModo(config, codes, position, cpName)
@@ -354,10 +354,28 @@ func consecutiveCodesAnalyse(config *model.Play2, codes []string, position strin
 		return notContinuityModo(config, codes, position, cpName)
 	}
 	return "", 0
+	*/
 }
 
 // 连续模式
-func continuityModo(config *model.Play2, codes []string, position string, cpName string) (string, int) {
+func continuityModo(config *model.Play2, codes []string, position string, cpName string) (string, int, bool) {
+	/*
+	codes = make([]string, 0)
+	codes = append(codes, "768")
+	codes = append(codes, "647")
+	codes = append(codes, "212")
+	codes = append(codes, "622")
+	codes = append(codes, "328")
+	codes = append(codes, "142")
+	codes = append(codes, "184")
+	codes = append(codes, "882")
+	codes = append(codes, "172")
+	codes = append(codes, "501")
+	codes = append(codes, "266")
+	config.Number = 1
+	config.Cycle = 1
+	*/
+
 	log_html := ""
 
 	// 连续模式 周期计数器
@@ -368,8 +386,9 @@ func continuityModo(config *model.Play2, codes []string, position string, cpName
 
 	// 满1周期 出现的位置
 	cycle_position := 0
-	// 满1周期 时的开奖号
-	cycle_position_code := ""
+
+	// 报警状态
+	remind := false
 
 	//参考对象
 	var reference string = ""
@@ -445,28 +464,44 @@ func continuityModo(config *model.Play2, codes []string, position string, cpName
 		}
 
 		// 周期计算
-		if config.Number == number {
+		if config.Number == number && continuity_modo_status == true {
 			// 1周期出现的 位置
 			cycle_position = i
-			// 1周期时的开奖号
-			cycle_position_code = codes[i]
+			// 1周期累计完毕
+			continuity_modo_number += 1
+			// 不清参考对象
+			// 周期累计暂停
+			continuity_modo_status = false
+			// 报警状态
+			remind = true
 		}
 
 		// 1周期后的一期开奖
 		if i == cycle_position + 1 {
-			// 本期出现的是组三 或者是 与上一期 同连号 则周期+1
-			if continuity_modo_status == true && isSix == false || (codes[i] == cycle_position_code && reference_current_obj != "") {
-				// 1周期累计完毕
-				continuity_modo_number += 1
-				// 不清参考对象
-				// 周期累计暂停
-				continuity_modo_status = false
+			// 报警状态
+			remind = false
+
+			// 同连号检查
+			// 同连号状态
+			tlh := false
+			if reference != "" &&  string(reference[0]) == string(code[0]) && string(reference[1]) == string(code[1]) {
+				tlh = true
+			}
+			if reference != "" &&  string(reference[0]) == string(code[1]) && string(reference[1]) == string(code[2]) {
+				tlh = true
+			}
+
+			// 本期出现的是组三 或者是 与上一期 同连号 则周期保留 否则 本轮周期结束
+			if isSix == false || tlh == true  {
+
+			}else{
+				continuity_modo_number = 0
 			}
 		}
 
 		// 累计的周期数 等于设置的 周期数 就清零了 如果是最新到一期到话
 		if continuity_modo_number == config.Cycle && (i + 1) != len(codes) {
-			continuity_modo_number = 0
+			//continuity_modo_number = 0
 		}
 
 		log_html += "<div> [连续模式] 周期计数:  "+ strconv.Itoa(continuity_modo_number) + " 周期计算状态: " + strconv.FormatBool(continuity_modo_status) +"</div>"
@@ -476,7 +511,11 @@ func continuityModo(config *model.Play2, codes []string, position string, cpName
 	}
 	log_html += "<br/>"
 
-	return log_html, continuity_modo_number
+	//fmt.Println(continuity_modo_number)
+	//fmt.Println(log_html)
+	//os.Exit(0)
+
+	return log_html, continuity_modo_number, remind
 }
 
 // 非连续模式

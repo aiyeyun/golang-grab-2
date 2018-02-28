@@ -115,6 +115,17 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 		//_, h3_num := consecutiveCodesAnalyse(config, cq_h3s, "后三", CpTypeName[CqsscType])
 
 		name := " 连号: " + strconv.Itoa(config.Number) + "期, 周期: "+strconv.Itoa(config.Cycle)+ " 期 "
+
+		body += "<div> 彩种: " + CpTypeName[CqsscType] + " 间隔几连号 "+name+" 报警提示 位置: 前三 周期数: "+ strconv.Itoa(q3_num) + "</div>"
+		body += "<div> 彩种: " + CpTypeName[CqsscType] + " 间隔几连号 "+name+" 报警提示 位置: 中三 周期数: "+ strconv.Itoa(z3_num) + "</div>"
+		body += "<div> 彩种: " + CpTypeName[CqsscType] + " 间隔几连号 "+name+" 报警提示 位置: 后三 周期数: "+ strconv.Itoa(h3_num) + "</div>"
+		body += q3_log_html
+		body += z3_log_html
+		body += h3_log_html
+		if body != "" {
+			mail.SendMail(CpTypeName[CqsscType] + " 间隔几连号", body)
+		}
+		
 		if q3_remind && q3_num >= config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 间隔几连号 "+name+" 报警提示 位置: 前三 周期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}

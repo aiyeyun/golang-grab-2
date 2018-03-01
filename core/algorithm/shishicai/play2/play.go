@@ -361,19 +361,48 @@ func consecutiveCodesAnalyse(config *model.Play2, codes []string, position strin
 func continuityModo(config *model.Play2, codes []string, position string, cpName string) (string, int, bool) {
 	/*
 	codes = make([]string, 0)
-	codes = append(codes, "768")
-	codes = append(codes, "647")
-	codes = append(codes, "212")
-	codes = append(codes, "622")
-	codes = append(codes, "328")
-	codes = append(codes, "142")
-	codes = append(codes, "184")
-	codes = append(codes, "882")
-	codes = append(codes, "172")
-	codes = append(codes, "501")
-	codes = append(codes, "266")
-	config.Number = 1
-	config.Cycle = 1
+	codes = append(codes, "419")
+	codes = append(codes, "364")
+	codes = append(codes, "772")
+	codes = append(codes, "953")
+	codes = append(codes, "088")
+	codes = append(codes, "015")
+	codes = append(codes, "775")
+	codes = append(codes, "799")
+	codes = append(codes, "421")
+	codes = append(codes, "794")
+	codes = append(codes, "567")
+	codes = append(codes, "865")
+	codes = append(codes, "407")
+	codes = append(codes, "210")
+	codes = append(codes, "107")
+	codes = append(codes, "333")
+	codes = append(codes, "789")
+	codes = append(codes, "291")
+	codes = append(codes, "963")
+	codes = append(codes, "388")
+	codes = append(codes, "242")
+	codes = append(codes, "703")
+	codes = append(codes, "625")
+	codes = append(codes, "758")
+	codes = append(codes, "371")
+	codes = append(codes, "833")
+	codes = append(codes, "757")
+	codes = append(codes, "325")
+	codes = append(codes, "207")
+	codes = append(codes, "806")
+	codes = append(codes, "520")
+	codes = append(codes, "511")
+	codes = append(codes, "540")
+	codes = append(codes, "759")
+	codes = append(codes, "847")
+	codes = append(codes, "256")
+	codes = append(codes, "432")
+	codes = append(codes, "710")
+	codes = append(codes, "886")
+	codes = append(codes, "138")
+	config.Number = 4
+	config.Cycle = 2
 	*/
 
 	log_html := ""
@@ -408,11 +437,16 @@ func continuityModo(config *model.Play2, codes []string, position string, cpName
 
 		if isSix == false {
 			log_html += "<div> 彩种:"+ cpName +" 开奖号: " + codes[i] + " 排序后 " + code + " 位置: " + position + " 不是组6 [不管] 期数 = " + strconv.Itoa(number)
-			log_html += "<div> [连续模式] 周期计数:  "+ strconv.Itoa(continuity_modo_number) + " 周期计算状态: " + strconv.FormatBool(continuity_modo_status) +"</div>"
 			//不是组6 跳出本次循环
 
 			//当前轮循完 刷新下一期的 参考对象
 			reference = reference_current_obj
+
+			// 报警状态
+			if remind == true {
+				 remind = false
+			}
+			log_html += "<div> [连续模式] 周期计数:  "+ strconv.Itoa(continuity_modo_number) + " 周期计算状态: " + strconv.FormatBool(continuity_modo_status) + " 是否该报警: " + strconv.FormatBool(remind) +"</div>"
 			continue
 		}
 
@@ -477,7 +511,7 @@ func continuityModo(config *model.Play2, codes []string, position string, cpName
 		}
 
 		// 1周期后的一期开奖
-		if i == cycle_position + 1 {
+		if i == cycle_position + 1 && cycle_position > 0 {
 			// 报警状态
 			remind = false
 
@@ -504,7 +538,7 @@ func continuityModo(config *model.Play2, codes []string, position string, cpName
 			//continuity_modo_number = 0
 		}
 
-		log_html += "<div> [连续模式] 周期计数:  "+ strconv.Itoa(continuity_modo_number) + " 周期计算状态: " + strconv.FormatBool(continuity_modo_status) +"</div>"
+		log_html += "<div> [连续模式] 周期计数:  "+ strconv.Itoa(continuity_modo_number) + " 周期计算状态: " + strconv.FormatBool(continuity_modo_status) + " 是否该报警: " + strconv.FormatBool(remind) +"</div>"
 
 		//当前轮循完 刷新下一期的 参考对象
 		reference = reference_current_obj

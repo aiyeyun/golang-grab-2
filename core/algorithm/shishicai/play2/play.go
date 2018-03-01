@@ -23,10 +23,8 @@ var consecutive_xj_data []*model.Xjssc
 //天津开奖数据
 //var consecutive_tj_data []*model.Tjssc
 
-/*
 //台湾开奖数据
 var consecutive_tw_data []*model.Twssc
-*/
 
 //间隔几连号
 var consecutiveNumbers map[string]string = make(map[string]string)
@@ -75,10 +73,8 @@ func Consecutive()  {
 	consecutive_tj_data = tjssc.Query("100")
 	*/
 
-	/*
 	twssc := new(model.Twssc)
 	consecutive_tw_data = twssc.Query("100")
-	*/
 
 	consecutiveAnalysis()
 }
@@ -100,9 +96,7 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 	cq_q3s, cq_z3s, cq_h3s := getCqCodes()
 	xj_q3s, xj_z3s, xj_h3s := getXjCodes()
 	//tj_q3s, tj_z3s, tj_h3s := getTjCodes()
-	/*
 	tw_q3s, tw_z3s, tw_h3s := getTwCodes()
-	*/
 
 	go func(config *model.Play2) {
 		//重庆报警
@@ -172,54 +166,54 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 		//_, h3_num := consecutiveCodesAnalyse(config, xj_h3s, "后三", CpTypeName[XjsscType])
 
 		name := " 连号: " + strconv.Itoa(config.Number) + "期, 周期: "+strconv.Itoa(config.Cycle)+ " 期 "
-		if q3_remind && q3_num == config.Cycle {
+		if q3_remind && q3_num >= config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 间隔几连号 "+name+" 报警提示 位置: 前三 周期数: "+ strconv.Itoa(q3_num) + "</div>"
 		}
-		if z3_remind && z3_num == config.Cycle {
+		if z3_remind && z3_num >= config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 间隔几连号 "+name+" 报警提示 位置: 中三 周期数: "+ strconv.Itoa(z3_num) + "</div>"
 		}
-		if h3_remind && h3_num == config.Cycle {
+		if h3_remind && h3_num >= config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 间隔几连号 "+name+" 报警提示 位置: 后三 周期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
 		body += q3_log_html
 		body += z3_log_html
 		body += h3_log_html
 
-		if (q3_remind && q3_num == config.Cycle) || (z3_remind && z3_num == config.Cycle) || (h3_remind && h3_num == config.Cycle) {
+		if (q3_remind && q3_num >= config.Cycle) || (z3_remind && z3_num >= config.Cycle) || (h3_remind && h3_num >= config.Cycle) {
 			//发送邮件
 			mail.SendMail(CpTypeName[XjsscType] + " 间隔几连号", body)
 		}
 	}(config)
 
-	/*
 	go func(config *model.Play2) {
 		//台湾报警
 		var body string
-		//q3_log_html, q3_num := consecutiveCodesAnalyse(tw_q3s, "前三", CpTypeName[TwsscType])
-		//z3_log_html, z3_num := consecutiveCodesAnalyse(tw_z3s, "中三", CpTypeName[TwsscType])
-		//h3_log_html, h3_num := consecutiveCodesAnalyse(tw_h3s, "后三", CpTypeName[TwsscType])
-		_, q3_num := consecutiveCodesAnalyse(tw_q3s, "前三", CpTypeName[TwsscType])
-		_, z3_num := consecutiveCodesAnalyse(tw_z3s, "中三", CpTypeName[TwsscType])
-		_, h3_num := consecutiveCodesAnalyse(tw_h3s, "后三", CpTypeName[TwsscType])
-		if q3_num >= config.Number {
-			body += "<div> 彩种: " + CpTypeName[TwsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
-		}
-		if z3_num >= config.Number {
-			body += "<div> 彩种: " + CpTypeName[TwsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>"
-		}
-		if h3_num >= config.Number {
-			body += "<div> 彩种: " + CpTypeName[TwsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
-		}
-		//body += q3_log_html
-		//body += z3_log_html
-		//body += h3_log_html
+		q3_log_html, q3_num, q3_remind := consecutiveCodesAnalyse(config, tw_q3s, "前三", CpTypeName[TwsscType])
+		z3_log_html, z3_num, z3_remind := consecutiveCodesAnalyse(config, tw_z3s, "中三", CpTypeName[TwsscType])
+		h3_log_html, h3_num, h3_remind := consecutiveCodesAnalyse(config, tw_h3s, "后三", CpTypeName[TwsscType])
+		//_, q3_num := consecutiveCodesAnalyse(config, tw_q3s, "前三", CpTypeName[TwsscType])
+		//_, z3_num := consecutiveCodesAnalyse(config, tw_z3s, "中三", CpTypeName[TwsscType])
+		//_, h3_num := consecutiveCodesAnalyse(config, tw_h3s, "后三", CpTypeName[TwsscType])
 
-		if q3_num >= config.Number || z3_num >= config.Number || h3_num >= config.Number {
+		name := " 连号: " + strconv.Itoa(config.Number) + "期, 周期: "+strconv.Itoa(config.Cycle)+ " 期 "
+		if q3_remind && q3_num >= config.Cycle {
+			body += "<div> 彩种: " + CpTypeName[TwsscType] + " 间隔几连号 "+name+" 报警提示 位置: 前三 周期数: "+ strconv.Itoa(q3_num) + "</div>"
+		}
+		if z3_remind && z3_num >= config.Cycle {
+			body += "<div> 彩种: " + CpTypeName[TwsscType] + " 间隔几连号 "+name+" 报警提示 位置: 中三 周期数: "+ strconv.Itoa(z3_num) + "</div>"
+		}
+		if h3_remind && h3_num >= config.Cycle {
+			body += "<div> 彩种: " + CpTypeName[TwsscType] + " 间隔几连号 "+name+" 报警提示 位置: 后三 周期数: "+ strconv.Itoa(h3_num) + "</div>"
+		}
+		body += q3_log_html
+		body += z3_log_html
+		body += h3_log_html
+
+		if (q3_remind && q3_num >= config.Cycle) || (z3_remind && z3_num >= config.Cycle) || (h3_remind && h3_num >= config.Cycle) {
 			//发送邮件
 			mail.SendMail(CpTypeName[TwsscType] + " 间隔几连号", body)
 		}
 	}(config)
-	*/
 
 }
 
@@ -312,7 +306,6 @@ func getXjCodes() ([]string, []string, []string) {
 	return q3s, z3s, h3s
 }
 
-/*
 //获取台湾 前中后的 开奖号码
 func getTwCodes() ([]string, []string, []string) {
 	q3s := make([]string, 0)
@@ -341,7 +334,6 @@ func getTwCodes() ([]string, []string, []string) {
 	}
 	return q3s, z3s, h3s
 }
-*/
 
 func consecutiveCodesAnalyse(config *model.Play2, codes []string, position string, cpName string) (string, int, bool) {
 	return continuityModo(config, codes, position, cpName)

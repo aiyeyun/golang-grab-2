@@ -24,7 +24,7 @@ var consecutive_xj_data []*model.Xjssc
 //var consecutive_tj_data []*model.Tjssc
 
 //台湾开奖数据
-var consecutive_tw_data []*model.Twssc
+//var consecutive_tw_data []*model.Twssc
 
 //间隔几连号
 var consecutiveNumbers map[string]string = make(map[string]string)
@@ -73,8 +73,8 @@ func Consecutive()  {
 	consecutive_tj_data = tjssc.Query("100")
 	*/
 
-	twssc := new(model.Twssc)
-	consecutive_tw_data = twssc.Query("100")
+	//twssc := new(model.Twssc)
+	//consecutive_tw_data = twssc.Query("100")
 
 	consecutiveAnalysis()
 }
@@ -96,7 +96,7 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 	cq_q3s, cq_z3s, cq_h3s := getCqCodes()
 	xj_q3s, xj_z3s, xj_h3s := getXjCodes()
 	//tj_q3s, tj_z3s, tj_h3s := getTjCodes()
-	tw_q3s, tw_z3s, tw_h3s := getTwCodes()
+	//tw_q3s, tw_z3s, tw_h3s := getTwCodes()
 
 	go func(config *model.Play2) {
 		//重庆报警
@@ -185,6 +185,7 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 		}
 	}(config)
 
+	/*
 	go func(config *model.Play2) {
 		//台湾报警
 		var body string
@@ -214,6 +215,7 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 			mail.SendMail(CpTypeName[TwsscType] + " 间隔几连号", body)
 		}
 	}(config)
+	*/
 
 }
 
@@ -306,6 +308,7 @@ func getXjCodes() ([]string, []string, []string) {
 	return q3s, z3s, h3s
 }
 
+/*
 //获取台湾 前中后的 开奖号码
 func getTwCodes() ([]string, []string, []string) {
 	q3s := make([]string, 0)
@@ -334,6 +337,7 @@ func getTwCodes() ([]string, []string, []string) {
 	}
 	return q3s, z3s, h3s
 }
+*/
 
 func consecutiveCodesAnalyse(config *model.Play2, codes []string, position string, cpName string) (string, int, bool) {
 	return continuityModo(config, codes, position, cpName)

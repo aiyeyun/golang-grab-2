@@ -101,9 +101,14 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 	go func(config *model.Play2) {
 		//重庆报警
 		var body string
-		q3_log_html, q3_num, q3_remind := consecutiveCodesAnalyse(config, cq_q3s, "前三", CpTypeName[CqsscType])
-		z3_log_html, z3_num, z3_remind := consecutiveCodesAnalyse(config, cq_z3s, "中三", CpTypeName[CqsscType])
-		h3_log_html, h3_num, h3_remind := consecutiveCodesAnalyse(config, cq_h3s, "后三", CpTypeName[CqsscType])
+		//q3_log_html, q3_num, q3_remind := consecutiveCodesAnalyse(config, cq_q3s, "前三", CpTypeName[CqsscType])
+		//z3_log_html, z3_num, z3_remind := consecutiveCodesAnalyse(config, cq_z3s, "中三", CpTypeName[CqsscType])
+		//h3_log_html, h3_num, h3_remind := consecutiveCodesAnalyse(config, cq_h3s, "后三", CpTypeName[CqsscType])
+
+		_, q3_num, q3_remind := consecutiveCodesAnalyse(config, cq_q3s, "前三", CpTypeName[CqsscType])
+		_, z3_num, z3_remind := consecutiveCodesAnalyse(config, cq_z3s, "中三", CpTypeName[CqsscType])
+		_, h3_num, h3_remind := consecutiveCodesAnalyse(config, cq_h3s, "后三", CpTypeName[CqsscType])
+
 		//_, q3_num := consecutiveCodesAnalyse(config, cq_q3s, "前三", CpTypeName[CqsscType])
 		//_, z3_num := consecutiveCodesAnalyse(config, cq_z3s, "中三", CpTypeName[CqsscType])
 		//_, h3_num := consecutiveCodesAnalyse(config, cq_h3s, "后三", CpTypeName[CqsscType])
@@ -118,9 +123,9 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 		if h3_remind && h3_num >= config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 间隔几连号 "+name+" 报警提示 位置: 后三 周期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
-		body += q3_log_html
-		body += z3_log_html
-		body += h3_log_html
+		//body += q3_log_html
+		//body += z3_log_html
+		//body += h3_log_html
 
 		if (q3_remind && q3_num >= config.Cycle) || (z3_remind && z3_num >= config.Cycle) || (h3_remind && h3_num >= config.Cycle) {
 			//发送邮件
@@ -158,9 +163,15 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 	go func(config *model.Play2) {
 		//新疆报警
 		var body string
-		q3_log_html, q3_num, q3_remind := consecutiveCodesAnalyse(config, xj_q3s, "前三", CpTypeName[XjsscType])
-		z3_log_html, z3_num, z3_remind := consecutiveCodesAnalyse(config, xj_z3s, "中三", CpTypeName[XjsscType])
-		h3_log_html, h3_num, h3_remind := consecutiveCodesAnalyse(config, xj_h3s, "后三", CpTypeName[XjsscType])
+		//q3_log_html, q3_num, q3_remind := consecutiveCodesAnalyse(config, xj_q3s, "前三", CpTypeName[XjsscType])
+		//z3_log_html, z3_num, z3_remind := consecutiveCodesAnalyse(config, xj_z3s, "中三", CpTypeName[XjsscType])
+		//h3_log_html, h3_num, h3_remind := consecutiveCodesAnalyse(config, xj_h3s, "后三", CpTypeName[XjsscType])
+
+		_, q3_num, q3_remind := consecutiveCodesAnalyse(config, xj_q3s, "前三", CpTypeName[XjsscType])
+		_, z3_num, z3_remind := consecutiveCodesAnalyse(config, xj_z3s, "中三", CpTypeName[XjsscType])
+		_, h3_num, h3_remind := consecutiveCodesAnalyse(config, xj_h3s, "后三", CpTypeName[XjsscType])
+
+
 		//_, q3_num := consecutiveCodesAnalyse(config, xj_q3s, "前三", CpTypeName[XjsscType])
 		//_, z3_num := consecutiveCodesAnalyse(config, xj_z3s, "中三", CpTypeName[XjsscType])
 		//_, h3_num := consecutiveCodesAnalyse(config, xj_h3s, "后三", CpTypeName[XjsscType])
@@ -175,9 +186,9 @@ func consecutiveAnalysisCodes(config *model.Play2)  {
 		if h3_remind && h3_num >= config.Cycle {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 间隔几连号 "+name+" 报警提示 位置: 后三 周期数: "+ strconv.Itoa(h3_num) + "</div>"
 		}
-		body += q3_log_html
-		body += z3_log_html
-		body += h3_log_html
+		//body += q3_log_html
+		//body += z3_log_html
+		//body += h3_log_html
 
 		if (q3_remind && q3_num >= config.Cycle) || (z3_remind && z3_num >= config.Cycle) || (h3_remind && h3_num >= config.Cycle) {
 			//发送邮件

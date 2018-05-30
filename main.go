@@ -10,6 +10,7 @@ import (
 	"xmn_2/core/algorithm/shishicai/CustomPackage"
 	//"xmn_2/core/algorithm/shishicai/play1"
 	"xmn_2/core/algorithm/shishicai/play2"
+	"xmn_2/core/algorithm/shishicai/ssccycle"
 )
 
 func main(){
@@ -31,6 +32,8 @@ func main(){
 			//go play1.Calculation()
 			// 时时彩 间隔几连号
 			go play2.Consecutive()
+			// a连续b 周期
+			go ssccycle.Calculation()
 		}
 	}
 }

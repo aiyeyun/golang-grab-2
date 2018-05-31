@@ -28,10 +28,10 @@ func Calculation()  {
 
 	//获取开奖号
 	cqssc := new(model.Cqssc)
-	cqCodes = cqssc.Query("200")
+	cqCodes = cqssc.Query("300")
 
 	xjscc := new(model.Xjssc)
-	xjCodes = xjscc.Query("200")
+	xjCodes = xjscc.Query("300")
 
 	//获取数据包
 	cPackage := new(model.SscCycle)
@@ -158,6 +158,9 @@ func (md *computing) calculate()  {
 	// 重新累计 连续a
 	var a_status bool = false
 
+	// 1周期累计完了后 直到b出现后才累计下一周期
+	var next_cycle_status bool = false
+
 	var log_html string = "<div>腾讯分分彩 a连续周期 包别名: " + md.packet.Alias + " 位置: "+ md.position + "<div>"
 	for i := range md.code {
 		log_html += "<br/><div>开奖号: " + md.code[i] + "</div>"
@@ -179,6 +182,19 @@ func (md *computing) calculate()  {
 
 		log_html += "<div>本期包含a包:"+ strconv.FormatBool(in_a) +"</div>"
 		log_html += "<div>上期包含a包:"+ strconv.FormatBool(pre_in_a) +"</div>"
+
+		// 1周期累计完了后 直到b出现后才累计下一周期
+		if next_cycle_status == false && in_a == false {
+			next_cycle_status = true
+			log_html += "<div> 一个整周期累计完 直到出现b后才开始累计下一周  周期后 b出现 开始下一周期累计 </div>"
+			continue
+		}
+
+		// 1周期累计完了后 直到b出现后才累计下一周期
+		if next_cycle_status == false && in_a == true {
+			log_html += "<div> 一个整周期累计完 直到出现b后才开始累计下一周  周期后 未出现b 等待b出现 </div>"
+			continue
+		}
 
 		// 第一期 出现a包 算 1连续
 		if i == 0 && in_a == true {
@@ -218,6 +234,10 @@ func (md *computing) calculate()  {
 				b_number = 0
 				// 重新计算连续a
 				a_status = true
+
+				// 1周期累计完了后 直到b出现后才累计下一周期
+				next_cycle_status = false
+
 				log_html += "<div> a包连续完 未在b包规定期数内出现了b 周期+1 = "+ strconv.Itoa(cycle_number) +" </div>"
 			}
 			continue

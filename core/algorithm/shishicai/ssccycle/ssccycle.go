@@ -274,7 +274,7 @@ func (md *computing) calculate()  {
 	}
 
 	// 检查是否报警
-	if cycle_number >= md.packet.Cycle - 1 && continuity_number == md.packet.Continuity -1 {
+	if cycle_number >= md.packet.Cycle - 1 && continuity_number == md.packet.Continuity {
 		body_html := "<div>"+ md.cpTypeName +" a连续b周期 报警 位置: "+ md.position+ " 数据包别名: "+ md.packet.Alias+ " 几A几B: " + strconv.Itoa(md.packet.Continuity) + " A " + strconv.Itoa(md.packet.Bnumber) + " B " + " 当前累计周期数 "+ strconv.Itoa(cycle_number) + " 当前a连续: "+ strconv.Itoa(continuity_number) +"</div>"
 		body_html += log_html
 		go mail.SendMail(md.cpTypeName+ " a连续b周期 报警", body_html)

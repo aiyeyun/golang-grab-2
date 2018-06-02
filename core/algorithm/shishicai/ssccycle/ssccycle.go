@@ -161,6 +161,9 @@ func (md *computing) calculate()  {
 	// 1周期累计完了后 直到b出现后才累计下一周期
 	var next_cycle_status bool = false
 
+	// 最新的一期 是否是a包
+	var in_a_status bool = false
+
 	var log_html string = "<div>"+ md.cpTypeName +" a连续周期 包别名: " + md.packet.Alias + " 位置: "+ md.position + "<div>"
 	for i := range md.code {
 		log_html += "<br/><div>开奖号: " + md.code[i] + "</div>"
@@ -182,6 +185,12 @@ func (md *computing) calculate()  {
 
 		log_html += "<div>本期包含a包:"+ strconv.FormatBool(in_a) +"</div>"
 		log_html += "<div>上期包含a包:"+ strconv.FormatBool(pre_in_a) +"</div>"
+
+		if in_a {
+			in_a_status = true
+		} else {
+			in_a_status = false
+		}
 
 		// 1周期累计完了后 直到b出现后才累计下一周期
 		if next_cycle_status == false && in_a == false {
@@ -274,7 +283,7 @@ func (md *computing) calculate()  {
 	}
 
 	// 检查是否报警
-	if cycle_number >= md.packet.Cycle - 1 && continuity_number == md.packet.Continuity {
+	if cycle_number >= md.packet.Cycle - 1 && continuity_number == md.packet.Continuity && in_a_status {
 		body_html := "<div>"+ md.cpTypeName +" a连续b周期 报警 位置: "+ md.position+ " 数据包别名: "+ md.packet.Alias+ " 几A几B: " + strconv.Itoa(md.packet.Continuity) + " A " + strconv.Itoa(md.packet.Bnumber) + " B " + " 当前累计周期数 "+ strconv.Itoa(cycle_number) + " 当前a连续: "+ strconv.Itoa(continuity_number) +"</div>"
 		body_html += log_html
 		go mail.SendMail(md.cpTypeName+ " a连续b周期 报警", body_html)

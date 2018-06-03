@@ -98,23 +98,60 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 	//tj_q3s, tj_z3s, tj_h3s := getTjCodes()
 	//tw_q3s, tw_z3s, tw_h3s := getTwCodes()
 
+	// 开奖号对应的 ids
+	cqIds := getCqCodesIds()
+	xjIds := getXjCodesIds()
+
 	go func(config *model.Alarm) {
 		//重庆报警
 		var body string
 		//q3_log_html, q3_num := consecutiveCodesAnalyse(cq_q3s, "前三", CpTypeName[CqsscType])
 		//z3_log_html, z3_num := consecutiveCodesAnalyse(cq_z3s, "中三", CpTypeName[CqsscType])
 		//h3_log_html, h3_num := consecutiveCodesAnalyse(cq_h3s, "后三", CpTypeName[CqsscType])
-		_, q3_num := consecutiveCodesAnalyse(cq_q3s, "前三", CpTypeName[CqsscType])
-		_, z3_num := consecutiveCodesAnalyse(cq_z3s, "中三", CpTypeName[CqsscType])
-		_, h3_num := consecutiveCodesAnalyse(cq_h3s, "后三", CpTypeName[CqsscType])
+		_, q3_num, q3_code_id := consecutiveCodesAnalyse(cq_q3s, "前三", CpTypeName[CqsscType], cqIds)
+		_, z3_num, z3_code_id := consecutiveCodesAnalyse(cq_z3s, "中三", CpTypeName[CqsscType], cqIds)
+		_, h3_num, h3_code_id := consecutiveCodesAnalyse(cq_h3s, "后三", CpTypeName[CqsscType], cqIds)
 		if q3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
+
+			arModel := &model.AlarmRecord{
+				AlarmId: q3_code_id,
+				Number: q3_num,
+				Cycle: config.Number,
+				Title: "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>",
+				CpType: CqsscType,
+				Position: 1,
+				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+			}
+			arModel.Insert()
 		}
 		if z3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>"
+
+			arModel := &model.AlarmRecord{
+				AlarmId: z3_code_id,
+				Number: z3_num,
+				Cycle: config.Number,
+				Title: "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>",
+				CpType: CqsscType,
+				Position: 2,
+				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+			}
+			arModel.Insert()
 		}
 		if h3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
+
+			arModel := &model.AlarmRecord{
+				AlarmId: h3_code_id,
+				Number: h3_num,
+				Cycle: config.Number,
+				Title: "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>",
+				CpType: CqsscType,
+				Position: 3,
+				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+			}
+			arModel.Insert()
 		}
 		//body += q3_log_html
 		//body += z3_log_html
@@ -159,17 +196,50 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		//q3_log_html, q3_num := consecutiveCodesAnalyse(xj_q3s, "前三", CpTypeName[XjsscType])
 		//z3_log_html, z3_num := consecutiveCodesAnalyse(xj_z3s, "中三", CpTypeName[XjsscType])
 		//h3_log_html, h3_num := consecutiveCodesAnalyse(xj_h3s, "后三", CpTypeName[XjsscType])
-		_, q3_num := consecutiveCodesAnalyse(xj_q3s, "前三", CpTypeName[XjsscType])
-		_, z3_num := consecutiveCodesAnalyse(xj_z3s, "中三", CpTypeName[XjsscType])
-		_, h3_num := consecutiveCodesAnalyse(xj_h3s, "后三", CpTypeName[XjsscType])
+		_, q3_num, q3_code_id := consecutiveCodesAnalyse(xj_q3s, "前三", CpTypeName[XjsscType], xjIds)
+		_, z3_num, z3_code_id := consecutiveCodesAnalyse(xj_z3s, "中三", CpTypeName[XjsscType], xjIds)
+		_, h3_num, h3_code_id := consecutiveCodesAnalyse(xj_h3s, "后三", CpTypeName[XjsscType], xjIds)
 		if q3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
+
+			arModel := &model.AlarmRecord{
+				AlarmId: q3_code_id,
+				Number: q3_num,
+				Cycle: config.Number,
+				Title: "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>",
+				CpType: XjsscType,
+				Position: 1,
+				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+			}
+			arModel.Insert()
 		}
 		if z3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>"
+
+			arModel := &model.AlarmRecord{
+				AlarmId: z3_code_id,
+				Number: z3_num,
+				Cycle: config.Number,
+				Title: "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>",
+				CpType: XjsscType,
+				Position: 2,
+				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+			}
+			arModel.Insert()
 		}
 		if h3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
+
+			arModel := &model.AlarmRecord{
+				AlarmId: h3_code_id,
+				Number: h3_num,
+				Cycle: config.Number,
+				Title: "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>",
+				CpType: XjsscType,
+				Position: 3,
+				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+			}
+			arModel.Insert()
 		}
 		//body += q3_log_html
 		//body += z3_log_html
@@ -242,6 +312,15 @@ func getCqCodes() ([]string, []string, []string) {
 	return q3s, z3s, h3s
 }
 
+// 重庆 开奖号对应的id
+func getCqCodesIds() ([]int) {
+	ids := make([]int, 0)
+	for i:= range consecutive_cq_data {
+		ids = append(ids, consecutive_cq_data[i].Id)
+	}
+	return ids
+}
+
 /*
 //获取天津 前中后的 开奖号码
 func getTjCodes() ([]string, []string, []string) {
@@ -302,6 +381,15 @@ func getXjCodes() ([]string, []string, []string) {
 	return q3s, z3s, h3s
 }
 
+// 新疆 开奖号对应的id
+func getXjCodesIds() ([]int) {
+	ids := make([]int, 0)
+	for i:= range consecutive_xj_data {
+		ids = append(ids, consecutive_xj_data[i].Id)
+	}
+	return ids
+}
+
 /*
 //获取台湾 前中后的 开奖号码
 func getTwCodes() ([]string, []string, []string) {
@@ -333,12 +421,16 @@ func getTwCodes() ([]string, []string, []string) {
 }
 */
 
-func consecutiveCodesAnalyse(codes []string, position string, cpName string) (string, int) {
+func consecutiveCodesAnalyse(codes []string, position string, cpName string, ids []int) (string, int, int) {
 	log_html := ""
 	//参考对象
 	var reference string = ""
 	var number int = 0
+	var code_id int = 0
 	for i := range codes {
+
+		// 开奖号的id
+		code_id = ids[i]
 
 		//该号码是否是组六
 		isSix := IsSix(codes[i])
@@ -410,9 +502,9 @@ func consecutiveCodesAnalyse(codes []string, position string, cpName string) (st
 
 	//最新的一期号码 的 有上一期的参考对象 才报警
 	if reference != "" {
-		return log_html, number
+		return log_html, number, code_id
 	}
-	return log_html, 0
+	return log_html, 0, code_id
 }
 
 //是否是连续的号码 并返回 最小的连号 例如: 123 是连号 返回最新的2个连号 将 返回 12

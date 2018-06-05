@@ -121,6 +121,9 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 				Title: "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>",
 				CpType: CqsscType,
 				Position: 1,
+				QNumber: q3_num,
+				ZNumber: z3_num,
+				HNumber: h3_num,
 				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
 			}
 			arModel.Insert()
@@ -135,6 +138,9 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 				Title: "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>",
 				CpType: CqsscType,
 				Position: 2,
+				QNumber: q3_num,
+				ZNumber: z3_num,
+				HNumber: h3_num,
 				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
 			}
 			arModel.Insert()
@@ -149,6 +155,9 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 				Title: "<div> 彩种: " + CpTypeName[CqsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>",
 				CpType: CqsscType,
 				Position: 3,
+				QNumber: q3_num,
+				ZNumber: z3_num,
+				HNumber: h3_num,
 				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
 			}
 			arModel.Insert()
@@ -209,6 +218,9 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 				Title: "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>",
 				CpType: XjsscType,
 				Position: 1,
+				QNumber: q3_num,
+				ZNumber: z3_num,
+				HNumber: h3_num,
 				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
 			}
 			arModel.Insert()
@@ -223,6 +235,9 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 				Title: "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>",
 				CpType: XjsscType,
 				Position: 2,
+				QNumber: q3_num,
+				ZNumber: z3_num,
+				HNumber: h3_num,
 				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
 			}
 			arModel.Insert()
@@ -237,6 +252,9 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 				Title: "<div> 彩种: " + CpTypeName[XjsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>",
 				CpType: XjsscType,
 				Position: 3,
+				QNumber: q3_num,
+				ZNumber: z3_num,
+				HNumber: h3_num,
 				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
 			}
 			arModel.Insert()

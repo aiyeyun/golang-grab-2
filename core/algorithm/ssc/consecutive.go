@@ -445,6 +445,8 @@ func consecutiveCodesAnalyse(codes []string, position string, cpName string, ids
 	var reference string = ""
 	var number int = 0
 	var code_id int = 0
+	// 最后一个号码是否是组六
+	var code_is_six bool = false
 	for i := range codes {
 
 		// 开奖号的id
@@ -452,6 +454,7 @@ func consecutiveCodesAnalyse(codes []string, position string, cpName string, ids
 
 		//该号码是否是组六
 		isSix := IsSix(codes[i])
+		code_is_six = isSix
 		if isSix == false {
 			//不是组6 跳出本次循环
 			continue
@@ -523,7 +526,7 @@ func consecutiveCodesAnalyse(codes []string, position string, cpName string, ids
 	log_html += "<br/>"
 
 	//最新的一期号码 的 有上一期的参考对象 才报警
-	if reference != "" {
+	if reference != "" && code_is_six {
 		return log_html, number, code_id
 	}
 	return log_html, 0, code_id

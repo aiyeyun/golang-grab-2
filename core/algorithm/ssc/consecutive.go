@@ -21,7 +21,7 @@ var consecutive_cq_data []*model.Cqssc
 var consecutive_xj_data []*model.Xjssc
 
 //天津开奖数据
-//var consecutive_tj_data []*model.Tjssc
+var consecutive_tj_data []*model.Tjssc
 
 //台湾开奖数据
 //var consecutive_tw_data []*model.Twssc
@@ -68,10 +68,8 @@ func Consecutive()  {
 	xjssc := new(model.Xjssc)
 	consecutive_xj_data = xjssc.Query("100")
 
-	/*
 	tjssc := new(model.Tjssc)
 	consecutive_tj_data = tjssc.Query("100")
-	*/
 
 	//twssc := new(model.Twssc)
 	//consecutive_tw_data = twssc.Query("100")
@@ -95,12 +93,13 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 
 	cq_q3s, cq_z3s, cq_h3s := getCqCodes()
 	xj_q3s, xj_z3s, xj_h3s := getXjCodes()
-	//tj_q3s, tj_z3s, tj_h3s := getTjCodes()
+	tj_q3s, tj_z3s, tj_h3s := getTjCodes()
 	//tw_q3s, tw_z3s, tw_h3s := getTwCodes()
 
 	// 开奖号对应的 ids
 	cqIds := getCqCodesIds()
 	xjIds := getXjCodesIds()
+	tjIds := getTjCodesIds()
 
 	go func(config *model.Alarm) {
 		//重庆报警
@@ -172,32 +171,72 @@ func consecutiveAnalysisCodes(config *model.Alarm)  {
 		}
 	}(config)
 
-	/*
 	go func(config *model.Alarm) {
 		//天津报警
 		var body string
-		_, q3_num := consecutiveCodesAnalyse(tj_q3s, "前三", CpTypeName[TjsscType])
-		_, z3_num := consecutiveCodesAnalyse(tj_z3s, "中三", CpTypeName[TjsscType])
-		_, h3_num := consecutiveCodesAnalyse(tj_h3s, "后三", CpTypeName[TjsscType])
+		//_, q3_num := consecutiveCodesAnalyse(tj_q3s, "前三", CpTypeName[TjsscType])
+		//_, z3_num := consecutiveCodesAnalyse(tj_z3s, "中三", CpTypeName[TjsscType])
+		//_, h3_num := consecutiveCodesAnalyse(tj_h3s, "后三", CpTypeName[TjsscType])
+		_, q3_num, q3_code_id := consecutiveCodesAnalyse(tj_q3s, "前三", CpTypeName[TjsscType], tjIds)
+		_, z3_num, z3_code_id := consecutiveCodesAnalyse(tj_z3s, "中三", CpTypeName[TjsscType], tjIds)
+		_, h3_num, h3_code_id := consecutiveCodesAnalyse(tj_h3s, "后三", CpTypeName[TjsscType], tjIds)
 		if q3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[TjsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>"
+
+			arModel := &model.AlarmRecord{
+				AlarmId: q3_code_id,
+				Number: q3_num,
+				Cycle: config.Number,
+				Title: "<div> 彩种: " + CpTypeName[TjsscType] + " 连号报警提示 位置: 前三 期数: "+ strconv.Itoa(q3_num) + "</div>",
+				CpType: TjsscType,
+				Position: 1,
+				QNumber: q3_num,
+				ZNumber: z3_num,
+				HNumber: h3_num,
+				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+			}
+			arModel.Insert()
 		}
 		if z3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[TjsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>"
+
+			arModel := &model.AlarmRecord{
+				AlarmId: z3_code_id,
+				Number: z3_num,
+				Cycle: config.Number,
+				Title: "<div> 彩种: " + CpTypeName[TjsscType] + " 连号报警提示 位置: 中三 期数: "+ strconv.Itoa(z3_num) + "</div>",
+				CpType: TjsscType,
+				Position: 2,
+				QNumber: q3_num,
+				ZNumber: z3_num,
+				HNumber: h3_num,
+				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+			}
+			arModel.Insert()
 		}
 		if h3_num == config.Number {
 			body += "<div> 彩种: " + CpTypeName[TjsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>"
+
+			arModel := &model.AlarmRecord{
+				AlarmId: h3_code_id,
+				Number: h3_num,
+				Cycle: config.Number,
+				Title: "<div> 彩种: " + CpTypeName[TjsscType] + " 连号报警提示 位置: 后三 期数: "+ strconv.Itoa(h3_num) + "</div>",
+				CpType: TjsscType,
+				Position: 3,
+				QNumber: q3_num,
+				ZNumber: z3_num,
+				HNumber: h3_num,
+				CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+			}
+			arModel.Insert()
 		}
-		//body += q3_log_html
-		//body += z3_log_html
-		//body += h3_log_html
 
 		if q3_num == config.Number || z3_num == config.Number || h3_num == config.Number {
 			//发送邮件
 			mail.SendMail(CpTypeName[TjsscType] + " 连号", body)
 		}
 	}(config)
-	*/
 
 	go func(config *model.Alarm) {
 		//新疆报警
@@ -339,7 +378,6 @@ func getCqCodesIds() ([]int) {
 	return ids
 }
 
-/*
 //获取天津 前中后的 开奖号码
 func getTjCodes() ([]string, []string, []string) {
 	q3s := make([]string, 0)
@@ -368,7 +406,15 @@ func getTjCodes() ([]string, []string, []string) {
 	}
 	return q3s, z3s, h3s
 }
-*/
+
+// 新疆 开奖号对应的id
+func getTjCodesIds() ([]int) {
+	ids := make([]int, 0)
+	for i:= range consecutive_tj_data {
+		ids = append(ids, consecutive_tj_data[i].Id)
+	}
+	return ids
+}
 
 //获取新疆 前中后的 开奖号码
 func getXjCodes() ([]string, []string, []string) {
